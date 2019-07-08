@@ -8,5 +8,9 @@ t= datos[:,0]
 x= datos[:,1]
 
 plt.figure()
-plt.plot(t,x)
+plt.plot(t,x, label= "RungeKutta 4to orden")
+plt.xlabel("Tiempo")
+plt.ylabel("Posicion")
+plt.title("Rungekutta Ode")
+plt.legend()
 plt.savefig("datos")
