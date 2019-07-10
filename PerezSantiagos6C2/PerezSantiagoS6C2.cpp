@@ -8,7 +8,7 @@ ofstream outfile;
 
 
 int main(){
-    double xf=1.0;
+    double L=1.0;
     double dx=0.01;
     int n=100;
     double tf=0.1;
@@ -20,6 +20,8 @@ int main(){
     double upresenteFi[n];
     double upasadoFi[n];
     double ufuturoFi[n];
+    double uiniFi[n];
+   
     
     upresenteFi[0]=0.0;
     upresenteFi[n-1]=0.0; 
@@ -31,6 +33,7 @@ int main(){
     double upresenteFiLi[n];
     double ufuturoFiLi[n];
     double upasadoFiLi[n];
+    double uiniFiLi[n];
     
     upresenteFiLi[0]=0.0;
     upresenteFiLi[n-1]=0.0;
@@ -42,6 +45,7 @@ int main(){
     double upresenteLi[n];
     double ufuturoLi[n];
     double upasadoLi[n];
+    double uiniLi[n];
     
     upresenteLi[0]=0.0;
     upresenteLi[n-1]=0.0;
@@ -49,29 +53,50 @@ int main(){
     upasadoLi[n-1]=0.0;
     ufuturoLi[0]=0.0;
     ufuturoLi[n-1]=0.0;
+    double m= A0/(L/2);
     
-    
+    double x[n];
+    x[0]=0.0;
     ///Para las condiciones iniciales
-    for(int j=0;j<n;j++)
+    outfile.open("datosini.dat");
+    for(int j=1;j<n;j++)
     {
-        if(j*dx>0.1 && j*dx < 0.2){
-            upresenteFi[j]=0.1;
-            upresenteFiLi[j]=0.1;}
+        x[j]= x[j-1]+dx;
+        if(x[j]<=L/2.0){
+            
+            uiniFi[j]= m*x[j];
+           
+        }
+            
         else{
-            upresenteFi[j]=0.0;
-            upresenteFiLi[j]=0.0;}
-    }
+            
+            uiniFi[j]=-m*x[j]+(2.0*A0);
+            
+            }
+        upasadoFi[j]= uiniFi[j];
+        outfile << upasadoFi[j]<<endl;
+    }outfile.close();
     
     
     for(int i=1;i<n-1;i++){
-        ufuturoFi[i]=upresenteFi[i] + ((r*r)/2.0) * (upresenteFi[i+1] - 2.0 * upresenteFi[i] + upresenteFi[i-1]);
-        ufuturoFiLi[i]=upresenteFiLi[i] + ((r*r)/2.0) * (upresenteFiLi[i+1] - 2.0 * upresenteFiLi[i] + upresenteFiLi[i-1]);
-        ufuturoLi[i]=upresenteLi[i] + ((r*r)/2.0) * (upresenteLi[i+1] - 2.0 * upresenteLi[i] + upresenteLi[i-1]);
+        upresenteFi[i]=upasadoFi[i] + ((r*r)/2.0) * (upasadoFi[i+1] - 2.0 * upasadoFi[i] + upasadoFi[i-1]);
+upasadoFi[i]= uiniFi[i];
+        //cout << upresenteFi[i] << endl;
     }
-    for(int k=0;k<n;k++){
-        upasadoFi[k] = upresenteFi[k];
-        upasadoFiLi[k] = upresenteFiLi[k];
-        upasadoLi[k] = upresenteLi[k];
-    }
+    
+    
+    outfile.open("datos1.dat");
+    int tiempo=1;
+    for (int h=0; h<tiempo ; h++){
+        h=h+0.01;
+        for (int k=1; k<n; k++){
+            ufuturoFi[k]= (2.0*(1.0-(r*r))*upresenteFi[k] - upasadoFi[k] + (r*r)*(upresenteFi[k+1]+upresenteFi[k-1]));}
+            for (int m=1; m<n; m++){
+                           upasadoFi[m]=upresenteFi[m];
+                           upresenteFi[m]=ufuturoFi[m];
+                              outfile << upresenteFi[m] << endl;         
+                           }
+                          
+} outfile.close();
     
     return 0;}
