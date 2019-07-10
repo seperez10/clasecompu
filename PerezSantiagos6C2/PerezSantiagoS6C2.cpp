@@ -12,15 +12,14 @@ int main(){
     double dx=0.01;
     int n=100;
     double tf=0.1;
-    int nt=500;
     double c= 300.0;
-    double dt=0.1*tf/nt;
+    double dt=(dx*0.5)/c;
     double A0= 0.01;
     double r= c*(dt/dx);
-    double upresenteFi[n];
-    double upasadoFi[n];
-    double ufuturoFi[n];
-    double uiniFi[n];
+    double upresenteFi[100];
+    double upasadoFi[100];
+    double ufuturoFi[100];
+    double uiniFi[100];
    
     
     upresenteFi[0]=0.0;
@@ -36,24 +35,14 @@ int main(){
     double uiniFiLi[n];
     
     upresenteFiLi[0]=0.0;
-    upresenteFiLi[n-1]=0.0;
+    
     upasadoFiLi[0]=0.0;
-    upasadoFiLi[n-1]=0.0;
+    
     ufuturoFiLi[0]=0.0;
-    ufuturoFiLi[n-1]=0.0;
     
-    double upresenteLi[n];
-    double ufuturoLi[n];
-    double upasadoLi[n];
-    double uiniLi[n];
     
-    upresenteLi[0]=0.0;
-    upresenteLi[n-1]=0.0;
-    upasadoLi[0]=0.0;
-    upasadoLi[n-1]=0.0;
-    ufuturoLi[0]=0.0;
-    ufuturoLi[n-1]=0.0;
-    double m= A0/(L/2);
+
+    double m= (A0*2.0)/(L);
     
     double x[n];
     x[0]=0.0;
@@ -77,26 +66,100 @@ int main(){
         outfile << upasadoFi[j]<<endl;
     }outfile.close();
     
-    
+    //PARA FIJAAAAAS
     for(int i=1;i<n-1;i++){
         upresenteFi[i]=upasadoFi[i] + ((r*r)/2.0) * (upasadoFi[i+1] - 2.0 * upasadoFi[i] + upasadoFi[i-1]);
-upasadoFi[i]= uiniFi[i];
+        //upasadoFi[i]= uiniFi[i];
         //cout << upresenteFi[i] << endl;
     }
     
     
-    outfile.open("datos1.dat");
-    int tiempo=1;
+    outfile.open("datosfijas1.dat");
+    
+    int tiempo=10;
     for (int h=0; h<tiempo ; h++){
-        h=h+0.01;
+        
+        for (int k=1; k<n-1; k++){
+            ufuturoFi[k]= ((r*r)*(upresenteFi[k+1]+upresenteFi[k-1]-2*upresenteFi[k])-upasadoFi[k]+2*upresenteFi[k]);
+        }
+        for (int m=1; m<n-1; m++)
+        {
+            upasadoFi[m]=upresenteFi[m];
+            upresenteFi[m]=ufuturoFi[m];
+            
+        }
+                                
+} 
+    for (int p=1; p<n-1; p++){
+            outfile << upresenteFi[p] << endl;
+    }outfile.close();
+    
+    
+    
+        outfile.open("datosfijas2.dat");
+    
+    int tiempo2=20;
+    for (int h=0; h<tiempo ; h++){
+        
         for (int k=1; k<n; k++){
-            ufuturoFi[k]= (2.0*(1.0-(r*r))*upresenteFi[k] - upasadoFi[k] + (r*r)*(upresenteFi[k+1]+upresenteFi[k-1]));}
-            for (int m=1; m<n; m++){
-                           upasadoFi[m]=upresenteFi[m];
-                           upresenteFi[m]=ufuturoFi[m];
-                              outfile << upresenteFi[m] << endl;         
-                           }
-                          
-} outfile.close();
+            ufuturoFi[k]= ((r*r)*(upresenteFi[k+1]+upresenteFi[k-1]-2*upresenteFi[k])-upasadoFi[k]+2*upresenteFi[k]);
+        }
+        for (int m=1; m<n; m++)
+        {
+            upasadoFi[m]=upresenteFi[m];
+            upresenteFi[m]=ufuturoFi[m];
+            
+        }
+                                
+} 
+    for (int p=1; p<n-1; p++){
+            outfile << upresenteFi[p] << endl;
+    }outfile.close();
+    
+    
+    
+        outfile.open("datosfijas3.dat");
+    
+    int tiempo3=30;
+    for (int h=0; h<tiempo3 ; h++){
+        
+        for (int k=1; k<n; k++){
+            ufuturoFi[k]= ((r*r)*(upresenteFi[k+1]+upresenteFi[k-1]-2*upresenteFi[k])-upasadoFi[k]+2*upresenteFi[k]);
+        }
+        for (int m=1; m<n; m++)
+        {
+            upasadoFi[m]=upresenteFi[m];
+            upresenteFi[m]=ufuturoFi[m];
+            
+        }
+                                
+} 
+    for (int p=1; p<n-1; p++){
+            outfile << upresenteFi[p] << endl;
+    }outfile.close();
+   
+    
+    ////////PARA FIJAS Y LIBREEEEEEEES
+    
+        outfile.open("datosfijaslibres1.dat");
+    
+    int tiempof1=20;
+    for (int h=1; h<tiempof1 ; h++){
+        
+        for (int k=1; k<=n; k++){
+            ufuturoFi[k]= ((r*r)*(upresenteFi[k+1]+upresenteFi[k-1]-2*upresenteFi[k])-upasadoFi[k]+2*upresenteFi[k]);
+        }
+        for (int m=1; m<=n; m++)
+        {
+            upasadoFi[m]=upresenteFi[m];
+            upresenteFi[m]=ufuturoFi[m];
+            
+        }
+       ufuturoFi[h]=ufuturoFi[h-1];                         
+} 
+    for (int p=1; p<=n; p++){
+            outfile << upresenteFi[p] << endl;
+    }outfile.close();
+    
     
     return 0;}
