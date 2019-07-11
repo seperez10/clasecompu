@@ -38,7 +38,7 @@ int main(){
     
     upasadoFiLi[0]=0.0;
     
-    ufuturoFiLi[0]=0.0;
+    //ufuturoFiLi[0]=0.0;
     
     
 
@@ -63,14 +63,15 @@ int main(){
             
             }
         upasadoFi[j]= uiniFi[j];
+        upasadoFiLi[j]= uiniFi[j];
         outfile << upasadoFi[j]<<endl;
     }outfile.close();
     
     //PARA FIJAAAAAS
     for(int i=1;i<n-1;i++){
         upresenteFi[i]=upasadoFi[i] + ((r*r)/2.0) * (upasadoFi[i+1] - 2.0 * upasadoFi[i] + upasadoFi[i-1]);
-        //upasadoFi[i]= uiniFi[i];
-        //cout << upresenteFi[i] << endl;
+        upresenteFiLi[i]=upasadoFiLi[i] + ((r*r)/2.0) * (upasadoFiLi[i+1] - 2.0 * upasadoFiLi[i] + upasadoFiLi[i-1]);
+        
     }
     
     
@@ -146,20 +147,84 @@ int main(){
     int tiempof1=20;
     for (int h=1; h<tiempof1 ; h++){
         
-        for (int k=1; k<=n; k++){
-            ufuturoFi[k]= ((r*r)*(upresenteFi[k+1]+upresenteFi[k-1]-2*upresenteFi[k])-upasadoFi[k]+2*upresenteFi[k]);
-        }
-        for (int m=1; m<=n; m++)
-        {
-            upasadoFi[m]=upresenteFi[m];
-            upresenteFi[m]=ufuturoFi[m];
+        for (int k=1; k<n; k++){
             
+            
+            if (x[k]<=(L/2)){
+                ufuturoFiLi[k]= ((r*r)*(upresenteFiLi[k+1]+upresenteFiLi[k-1]-2*upresenteFiLi[k])-upasadoFiLi[k]+2*upresenteFiLi[k]);}
+            
+            else {
+                ufuturoFiLi[k]=ufuturoFiLi[k-1];}
         }
-       ufuturoFi[h]=ufuturoFi[h-1];                         
+        
+        for (int m=1; m<n; m++)
+        {
+             
+            upasadoFiLi[m]=upresenteFiLi[m];
+            upresenteFiLi[m]=ufuturoFiLi[m];
+        }
+                               
 } 
-    for (int p=1; p<=n; p++){
-            outfile << upresenteFi[p] << endl;
+    for (int p=1; p<n; p++){
+            outfile << upresenteFiLi[p] << endl;
     }outfile.close();
     
+    
+    outfile.open("datosfijaslibres2.dat");
+    
+    int tiempof2=40;
+    for (int h=0; h<tiempof2 ; h++){
+        
+        for (int k=1; k<n; k++){
+            
+            
+            if (x[k]<=(L/2)){
+                ufuturoFiLi[k]= ((r*r)*(upresenteFiLi[k+1]+upresenteFiLi[k-1]-2*upresenteFiLi[k])-upasadoFiLi[k]+2*upresenteFiLi[k]);}
+            
+            else {
+                ufuturoFiLi[k]=ufuturoFiLi[k-1];}
+        }
+        
+        for (int m=1; m<n; m++)
+        {
+             
+            upasadoFiLi[m]=upresenteFiLi[m];
+            upresenteFiLi[m]=ufuturoFiLi[m];
+        }
+                               
+} 
+    for (int p=1; p<n; p++){
+            outfile << upresenteFiLi[p] << endl;
+    }outfile.close();
+    
+    
+     outfile.open("datosfijaslibres3.dat");
+    
+    int tiempof3=100;
+    for (int h=0; h<tiempof3 ; h++){
+        
+        for (int k=1; k<n; k++){
+            
+            
+            if (x[k]<=(L/2)){
+                ufuturoFiLi[k]= ((r*r)*(upresenteFiLi[k+1]+upresenteFiLi[k-1]-2*upresenteFiLi[k])-upasadoFiLi[k]+2*upresenteFiLi[k]);}
+            
+            else {
+                ufuturoFiLi[k]=ufuturoFiLi[k-1];}
+        }
+        
+        for (int m=1; m<n; m++)
+        {
+             
+            upasadoFiLi[m]=upresenteFiLi[m];
+            upresenteFiLi[m]=ufuturoFiLi[m];
+        }
+                               
+} 
+    for (int p=1; p<n; p++){
+            outfile << upresenteFiLi[p] << endl;
+    }outfile.close();
+    
+   
     
     return 0;}
