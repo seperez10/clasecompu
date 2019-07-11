@@ -74,6 +74,7 @@ int main(){
         
     }
     
+         /////TIEMPO 1 PARA CONDICIONES FIJAS //////////////////////////////
     
     outfile.open("datosfijas1.dat");
     
@@ -95,7 +96,7 @@ int main(){
             outfile << upresenteFi[p] << endl;
     }outfile.close();
     
-    
+         /////TIEMPO 2 PARA CONDICIONES FIJAS //////////////////////////////
     
         outfile.open("datosfijas2.dat");
     
@@ -117,7 +118,7 @@ int main(){
             outfile << upresenteFi[p] << endl;
     }outfile.close();
     
-    
+     /////TIEMPO 3 PARA CONDICIONES FIJAS //////////////////////////////
     
         outfile.open("datosfijas3.dat");
     
@@ -141,6 +142,7 @@ int main(){
    
     
     ////////PARA FIJAS Y LIBREEEEEEEES
+     /////TIEMPO 1 PARA CONDICIONES FIJAS -LIBRE//////////////////////////////
     
         outfile.open("datosfijaslibres1.dat");
     
@@ -169,6 +171,7 @@ int main(){
             outfile << upresenteFiLi[p] << endl;
     }outfile.close();
     
+     /////TIEMPO 2 PARA CONDICIONES FIJAS -LIBRE//////////////////////////////
     
     outfile.open("datosfijaslibres2.dat");
     
@@ -197,7 +200,7 @@ int main(){
             outfile << upresenteFiLi[p] << endl;
     }outfile.close();
     
-    
+    /////TIEMPO 3 PARA CONDICIONES FIJAS -LIBRE//////////////////////////////
      outfile.open("datosfijaslibres3.dat");
     
     int tiempof3=100;
