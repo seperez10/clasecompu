@@ -20,6 +20,7 @@ int main(){
     double upasadoFi[100];
     double ufuturoFi[100];
     double uiniFi[100];
+    double sin (double x);
    
     
     upresenteFi[0]=0.0;
@@ -38,7 +39,18 @@ int main(){
     
     upasadoFiLi[0]=0.0;
     
-    //ufuturoFiLi[0]=0.0;
+    ufuturoFiLi[0]=0.0;
+    
+    double upresenteLi[n];
+    double ufuturoLi[n];
+    double upasadoLi[n];
+    double uiniLi[n];
+    
+    upresenteLi[n-1]=0.0;
+    
+    upasadoLi[n-1]=0.0;
+    
+    ufuturoLi[n-1]=0.0;
     
     
 
@@ -64,6 +76,7 @@ int main(){
             }
         upasadoFi[j]= uiniFi[j];
         upasadoFiLi[j]= uiniFi[j];
+        //upasadoLi[j]= uiniFi[j];
         outfile << upasadoFi[j]<<endl;
     }outfile.close();
     
@@ -71,7 +84,7 @@ int main(){
     for(int i=1;i<n-1;i++){
         upresenteFi[i]=upasadoFi[i] + ((r*r)/2.0) * (upasadoFi[i+1] - 2.0 * upasadoFi[i] + upasadoFi[i-1]);
         upresenteFiLi[i]=upasadoFiLi[i] + ((r*r)/2.0) * (upasadoFiLi[i+1] - 2.0 * upasadoFiLi[i] + upasadoFiLi[i-1]);
-        
+        upresenteLi[i]= upasadoLi[i] + ((r*r)/2.0) * (upasadoLi[i+1] - 2.0 * upasadoLi[i] + upasadoLi[i-1]);
     }
     
          /////TIEMPO 1 PARA CONDICIONES FIJAS //////////////////////////////
@@ -227,6 +240,40 @@ int main(){
     for (int p=1; p<n; p++){
             outfile << upresenteFiLi[p] << endl;
     }outfile.close();
+    
+    
+    double tiempop1=10;
+    /////TIEMPO 1 PARA CONDICIONES Periodicas//////////////////////////////
+    outfile.open("datosperiodicas1.dat");
+    for (int ti=0; ti<tiempop1; ti++){
+
+    for (int h=0; h<n ; h++){
+        double xgr=3.0*c*h*PI/L;
+        double x2 = xgr*PI/180;
+        upasadoLi[0]= A0*sin(x2);
+        upresenteLi[0]= A0*sin(x2);
+        ufuturoLi[0]= A0*sin(x2);
+        
+            
+        for (int k=1; k<n; k++){
+            if (x[k]>(L/2)){
+            ufuturoLi[k]=((r*r)*(upresenteLi[k+1]+upresenteLi[k-1]-2*upresenteLi[k])-upasadoLi[k]+2*upresenteLi[k]);}
+            else {
+                ufuturoLi[k]=-ufuturoLi[k-1];}
+        }
+    }
+        }
+  for (int m=1; m<n; m++){
+      upasadoLi[m]=upresenteLi[m];
+      upresenteLi[m]=ufuturoLi[m];}
+                            
+    
+    for (int p=1; p<n; p++){
+            outfile << upresenteLi[p] << endl;
+    }outfile.close();
+    
+    
+    /////TIEMPO 1 PARA CONDICIONES Periodicas//////////////////////////////
     
    
     
