@@ -9,7 +9,7 @@ int main(){
 
 
   double Tprom = 0;
-  double tmax = 100.0;
+  double tmax100 = 100.0;
     double dx = 0.01;
   double miu = 1e-4;
   double dt = (dx*dx)*0.05/miu;
@@ -50,7 +50,7 @@ int main(){
     
     
     
-     while(t < tmax){
+     while(t < tmax100){
         for(i = 1;i<nlado-1;i++){
           for(j = 1;j<nlado-1;j++){
             
@@ -69,9 +69,161 @@ int main(){
       }
       outfile << "\n";
     } outfile.close();
+    
+     ///////////////////////////////////PARA CONDICIONES DE FRONTERA FIJAS 2500/////////////////////////////
+    
+    outfile.open("Fijas2500.dat");
+    
+    double tmax2500=2500;
+    while(t < tmax2500){
+        double PromedioFi=0;
+        for(i = 1;i<nlado-1;i++){
+          for(j = 1;j<nlado-1;j++){
+            
+            Tpresente[i][j]= miu*dt*(((Tviejo[i+1][j]+Tviejo[i-1][j]-2*Tviejo[i][j])/(dx*dx)) + ((Tviejo[i][j+1]+Tviejo[i][j-1]-2*Tviejo[i][j])/(dx*dx)))+ Tviejo[i][j];
+            
+            Tviejo[i][j]=Tpresente[i][j];
+            PromedioFi = PromedioFi + Tviejo[i][j];
+      }
+    }
+    
+    
+    t += dt;
+  }
+
+
+  for(i=0;i<nlado;i++){
+      for(j=0;j<nlado;j++){
+        outfile << Tpresente[i][j] << " ";
+      }
+      outfile << "\n";
+    } outfile.close();
+    
+    
+    ///////////////////////////////////PARA CONDICIONES DE FRONTERA ABIERTAS/////////////////////////////
+     ///////////////////////////////////PARA CONDICIONES DE FRONTERA ABIERTAS/////////////////////////////
+     ///////////////////////////////////PARA CONDICIONES DE FRONTERA ABIERTAS/////////////////////////////
+    
+    
+    double TfuturoA[nlado-2][nlado-2];
+    double TviejoA[nlado-2][nlado-2];
+    double TpresenteA[nlado-2][nlado-2];
+    for(i=1;i<nlado-1;i++){
+      for(j=1;j<nlado-1;j++){
+          TviejoA[i][j]=50.0;
+          TfuturoA[i][j]=50.0;
+          TpresenteA[i][j]=TviejoA[i][j];
+          if(i>=40 && i<61 && j>20 && j<41){
+              TviejoA[i][j]=100.0;
+              TfuturoA[i][j]=100.0;
+              TpresenteA[i][j]=TviejoA[i][j];
+          }
+           
+      }
+     
+  }
+    
+    outfile.open("Abiertas100.dat");
+    double t2=0.0;
+    while(t2 < tmax100){
+        for(int h = 1;h<nlado-1;h++){
+          for(int s = 1;s<nlado-1;s++){
+              
+            TfuturoA[h][s]= miu*dt*(((TviejoA[h+1][s]+TviejoA[h-1][s]-2*TviejoA[h][s])/(dx*dx)) + ((TviejoA[h][s+1]+TviejoA[h][s-1]-2*TviejoA[h][s])/(dx*dx)))+ TviejoA[h][s];
+              TviejoA[h][s]=TfuturoA[h][s];
+            
+            
+      }
+    }
+    t2 += dt;
+  }
+
+
+  for(i=1;i<nlado-1;i++){
+      for(j=1;j<nlado-1;j++){
+        outfile << TfuturoA[i][j] << " ";
+      }
+      outfile << "\n";
+    } outfile.close();
+    
+    
+    
+        outfile.open("Abiertas2500.dat");
+    while(t2 < tmax2500){
+        for(int h = 1;h<nlado-1;h++){
+          for(int s = 1;s<nlado-1;s++){
+              
+            TfuturoA[h][s]= miu*dt*(((TviejoA[h+1][s]+TviejoA[h-1][s]-2*TviejoA[h][s])/(dx*dx)) + ((TviejoA[h][s+1]+TviejoA[h][s-1]-2*TviejoA[h][s])/(dx*dx)))+ TviejoA[h][s];
+              TviejoA[h][s]=TfuturoA[h][s];
+            
+            
+      }
+    }
+    t2 += dt;
+  }
+
+
+  for(i=1;i<nlado-1;i++){
+      for(j=1;j<nlado-1;j++){
+        outfile << TfuturoA[i][j] << " ";
+      }
+      outfile << "\n";
+    } outfile.close();
+    
+    
+    
+    
+    double TfuturoP[nlado][nlado];
+    double TviejoP[nlado][nlado];
+    double TpresenteP[nlado][nlado];
+    for(i=1;i<nlado-1;i++){
+      for(j=1;j<nlado-1;j++){
+          TviejoP[i][j]=50.0;
+          TfuturoP[i][j]=50.0;
+          TpresenteP[i][j]=TviejoP[i][j];
+          if(i>=40 && i<61 && j>20 && j<41){
+              TviejoP[i][j]=100.0;
+              TfuturoP[i][j]=100.0;
+              TpresenteP[i][j]=TviejoP[i][j];
+          }
+           
+      }
+     
+  }
+    
+        outfile.open("Periodicas100.dat");
+    double t3=0.0;
+    while(t3 < tmax100){
+        for(int p = 1;p<nlado-1;p++){
+          for(int m = 1;m<nlado-1;m++){
+              
+            TfuturoP[p][m]= miu*dt*(((TviejoP[p+1][m]+TviejoP[p-1][m]-2*TviejoP[p][m])/(dx*dx)) + ((TviejoP[p][m+1]+TviejoP[p][m-1]-2*TviejoP[p][m])/(dx*dx)))+ TviejoP[p][m];
+              TviejoP[p][m]=TfuturoP[p][m];
+            
+            
+      }
+    }
+    t3 += dt;
+  }
+
+
+  for(i=0;i<=nlado-1;i++){
+      for(j=0;j<=nlado-1;j++){
+          if(i==0){
+              TfuturoP[i][j]=TfuturoP[nlado-1][j];}
+          if(j==0){
+              TfuturoP[i][j]=TfuturoP[i][j-1];}
+          if(i==nlado-1){
+              TfuturoP[i][j]=TfuturoP[1][j];}
+          if(j==nlado-1){
+              TfuturoP[i][j]=TfuturoP[i][1];}
+        outfile << TfuturoP[i][j] << " ";
+      }
+      outfile << "\n";
+    } outfile.close();
+    
+    
  
-    
-    
     
     return 0;
 }
