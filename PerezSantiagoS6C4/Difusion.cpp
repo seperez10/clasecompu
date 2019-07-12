@@ -4,6 +4,7 @@
 
 using namespace std;
 ofstream outfile;
+ofstream outfileProm;
 
 int main(){
 
@@ -73,17 +74,18 @@ int main(){
      ///////////////////////////////////PARA CONDICIONES DE FRONTERA FIJAS 2500/////////////////////////////
     
     outfile.open("Fijas2500.dat");
+    outfileProm.open("PromedioFijas.dat");
     
     double tmax2500=2500;
     while(t < tmax2500){
-        double PromedioFi=0;
+        
         for(i = 1;i<nlado-1;i++){
           for(j = 1;j<nlado-1;j++){
             
             Tpresente[i][j]= miu*dt*(((Tviejo[i+1][j]+Tviejo[i-1][j]-2*Tviejo[i][j])/(dx*dx)) + ((Tviejo[i][j+1]+Tviejo[i][j-1]-2*Tviejo[i][j])/(dx*dx)))+ Tviejo[i][j];
             
             Tviejo[i][j]=Tpresente[i][j];
-            PromedioFi = PromedioFi + Tviejo[i][j];
+            
       }
     }
     
@@ -91,13 +93,19 @@ int main(){
     t += dt;
   }
 
-
+double PromedioFi[nlado];
+PromedioFi[0]=0;
   for(i=0;i<nlado;i++){
       for(j=0;j<nlado;j++){
+        
         outfile << Tpresente[i][j] << " ";
+        PromedioFi[i+1] = PromedioFi[i] + (Tpresente[i][j])/(nlado*nlado);
       }
+      outfileProm << PromedioFi[nlado-1] << endl;
       outfile << "\n";
-    } outfile.close();
+    }
+    outfileProm.close();
+    outfile.close();
     
     
     ///////////////////////////////////PARA CONDICIONES DE FRONTERA ABIERTAS/////////////////////////////
@@ -139,8 +147,16 @@ int main(){
   }
 
 
-  for(i=1;i<nlado-1;i++){
-      for(j=1;j<nlado-1;j++){
+  for(i=1;i<=nlado-2;i++){
+      for(j=1;j<=nlado-2;j++){
+          if (i==j && i==0){
+              TfuturoA[i][j]= TfuturoA[i+2][j+2];}
+          else if(i==0 && j==nlado-2){
+              TfuturoA[i][j]= TfuturoA[i+2][j-2];}
+          else if(j==0 && i==nlado-2){
+              TfuturoA[i][j]= TfuturoA[i-2][j+2];}
+          else if(i==nlado-2 && j==nlado-2){
+              TfuturoA[i][j]= TfuturoA[i-2][j-2];}
         outfile << TfuturoA[i][j] << " ";
       }
       outfile << "\n";
@@ -163,8 +179,16 @@ int main(){
   }
 
 
-  for(i=1;i<nlado-1;i++){
-      for(j=1;j<nlado-1;j++){
+  for(i=1;i<=nlado-2;i++){
+      for(j=1;j<=nlado-2;j++){
+          if (i==j && i==5){
+              TfuturoA[i][j]= TfuturoA[i+2][j+2];}
+          else if(i==0 && j>nlado-5){
+              TfuturoA[i][j]= TfuturoA[i+2][j-2];}
+          else if(j==0 && i>nlado-5){
+              TfuturoA[i][j]= TfuturoA[i-2][j+2];}
+          else if(i>nlado-5 && j>nlado-5){
+              TfuturoA[i][j]= TfuturoA[i-2][j-2];}
         outfile << TfuturoA[i][j] << " ";
       }
       outfile << "\n";
@@ -210,9 +234,43 @@ int main(){
   for(i=0;i<=nlado-1;i++){
       for(j=0;j<=nlado-1;j++){
           if(i==0){
-              TfuturoP[i][j]=TfuturoP[nlado-1][j];}
+              TfuturoP[i][j]=TfuturoP[nlado-2][j];}
           if(j==0){
-              TfuturoP[i][j]=TfuturoP[i][j-1];}
+              TfuturoP[i][j]=TfuturoP[i][nlado-2];}
+          if(i==nlado-1){
+              TfuturoP[i][j]=TfuturoP[2][j];}
+          if(j==nlado-1){
+              TfuturoP[i][j]=TfuturoP[i][2];}
+        outfile << TfuturoP[i][j] << " ";
+      }
+      outfile << "\n";
+    } outfile.close();
+    
+    
+    
+    
+    
+     outfile.open("Periodicas2500.dat");
+    while(t3 < tmax2500){
+        for(int p = 1;p<nlado-1;p++){
+          for(int m = 1;m<nlado-1;m++){
+              
+            TfuturoP[p][m]= miu*dt*(((TviejoP[p+1][m]+TviejoP[p-1][m]-2*TviejoP[p][m])/(dx*dx)) + ((TviejoP[p][m+1]+TviejoP[p][m-1]-2*TviejoP[p][m])/(dx*dx)))+ TviejoP[p][m];
+              TviejoP[p][m]=TfuturoP[p][m];
+            
+            
+      }
+    }
+    t3 += dt;
+  }
+
+
+  for(i=0;i<=nlado-1;i++){
+      for(j=0;j<=nlado-1;j++){
+          if(i==0){
+              TfuturoP[i][j]=TfuturoP[nlado-2][j];}
+          if(j==0){
+              TfuturoP[i][j]=TfuturoP[i][nlado-2];}
           if(i==nlado-1){
               TfuturoP[i][j]=TfuturoP[1][j];}
           if(j==nlado-1){
