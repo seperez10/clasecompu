@@ -59,6 +59,11 @@ int main(){
         
     }
     
+    xL[1]= xE[1];
+    yL[1]= yE[1];
+    vxL[1]= vxE[1];
+    vyL[1]= vyL[1];
+        
         
     
     return 0;
@@ -76,9 +81,9 @@ double velocidad(double v0){
 
 
 
-double LeapFrog(){
- 
-    
+double LeapFrog(double xviejo, double vviejo){
+ double dt;
+ return  xviejo + 2.0*dt*vviejo;
 }
 
 
