@@ -6,9 +6,10 @@ ofstream outfile;
 
 double aceleracion(double , double );
 double velocidad();
-double LeapFrog();
+double LeapFrog(double, double);
 double Runge4();
-
+double Euler(double , double );
+double dt; ///Me toco definir esto como variable global si no la funcion no me funcionaba
 
 
 
@@ -45,24 +46,37 @@ int main(){
     rR[0]= rE[0];
     
      //cout << rE[0];
-    double dt=(t[n-1]-t[0])/(n-1);
+     dt=(t[n-1]-t[0])/(n-1);
     outfile.open("datoseuler1.dat");
     for (i=1; i<n; i++){
         //cout << i << endl;
         t[i]=t[i-1]+dt;
-        xE[i]=(xE[i-1]+ dt*vxE[i-1]);
-        yE[i]=(yE[i-1]+ dt*vyE[i-1]);
+        xE[i]=Euler(xE[i-1],vxE[i-1]);
+        yE[i]=Euler(yE[i-1],vyE[i-1]);
         vxE[i]= vxE[i-1]+ dt*aceleracion(xE[i-1],rE[i-1]);
         vyE[i]= vyE[i-1]+ dt*aceleracion(yE[i-1],rE[i-1]); 
         rE[i]= pow((xE[i]*xE[i])+(yE[i]*yE[i]),0.5);
         outfile << xE[i] <<","<< yE[i] << endl;
         
-    }
+    }outfile.close();
     
     xL[1]= xE[1];
     yL[1]= yE[1];
     vxL[1]= vxE[1];
     vyL[1]= vyL[1];
+    
+        outfile.open("datosleap1.dat");
+    for (i=2; i<n; i++){
+        //cout << i << endl;
+        t[i]=t[i-2]+dt;
+        xL[i]=LeapFrog(xL[i-2],vxL[i-2]);
+        yL[i]=LeapFrog(yL[i-2],vyL[i-2]);
+        vxL[i]= vxL[i-2]+ dt*aceleracion(xL[i-2],rL[i-2]);
+        vyL[i]= vyL[i-2]+ dt*aceleracion(yL[i-2],rL[i-2]); 
+        rL[i]= pow((xL[i]*xL[i])+(yL[i]*yL[i]),0.5);
+        outfile << xL[i] <<","<< yL[i] << endl;
+        
+    }outfile.close();
         
         
     
@@ -79,10 +93,13 @@ double velocidad(double v0){
     return v0;
 }
 
-
+double Euler(double xviejo, double vviejo){
+   
+    return xviejo +dt*vviejo;
+}
 
 double LeapFrog(double xviejo, double vviejo){
- double dt;
+
  return  xviejo + 2.0*dt*vviejo;
 }
 
