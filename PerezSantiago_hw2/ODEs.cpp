@@ -141,10 +141,10 @@ double Runge4(double dt){
     double k3x2= aceleracion(k2posx, rR[j-1]);
     double k3y= k2vy;
     double k3y2= aceleracion(k2posy, rR[j-1]);
-    double k3posx= xR[j-1] + (dt/2.0) * k3x;
-    double k3posy= yR[j-1] + (dt/2.0) * k3y;
-    double k3vx= vxR[j-1]+ (dt/2.0) * k3x2;
-    double k3vy= vyR[j-1]+ (dt/2.0) * k3y2;
+    double k3posx= xR[j-1] + (dt) * k3x;
+    double k3posy= yR[j-1] + (dt) * k3y;
+    double k3vx= vxR[j-1]+ (dt) * k3x2;
+    double k3vy= vyR[j-1]+ (dt) * k3y2;
                
            double k4x= k3vx;
     double k4x2= aceleracion(k3posx, rR[j-1]);
