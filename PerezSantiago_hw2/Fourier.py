@@ -17,7 +17,7 @@ Transseria= np.fft.fft2(datosseria)
 
 sonrisafreq= np.fft.fftshift(Transsonrisa)
 seriafreq= np.fft.fftshift(Transseria)
-
+print (np.shape(sonrisafreq))
 
 plt.figure()
 plt.imshow(abs(Transsonrisa), norm=LogNorm())
@@ -43,6 +43,29 @@ plt.colorbar()
 plt.title("Frecuencias seria")
 plt.savefig("freqseria")
 
+#print (len(sonrisafreq))
+
+for i in range (len(sonrisafreq)):
+    for j in range (170):
+        if (abs(sonrisafreq[i,j])<68):
+            sonrisafreq[i,j]=0
+for i in range (len(seriafreq)):
+    for j in range (170):
+        if (abs(seriafreq[i,j])>100):
+            seriafreq[i,j]=0        
+amfiltsonr= np.fft.ifftshift(sonrisafreq)     
+inversafoursonr= np.fft.ifft2(amfiltsonr)
+amfiltseria= np.fft.ifftshift(seriafreq)     
+inversafourseria= np.fft.ifft2(amfiltseria)
+
+hibrideichon= inversafoursonr*0.55+inversafourseria*0.95
+
+plt.figure()
+plt.imshow(abs(hibrideichon),plt.cm.gray)
+plt.colorbar()
+plt.title("Imagen hibrida")
+plt.savefig("Hibrida")
 
 
+          
 
