@@ -53,7 +53,7 @@ energR3=datosR3[:,2]
 
 
 
-plt.figure()
+plt.figure(figsize=(10,15))
 plt.subplot(331)
 plt.plot(x,y, color= "red")
 plt.xlabel("X")
