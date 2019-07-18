@@ -19,29 +19,27 @@ sonrisafreq= np.fft.fftshift(Transsonrisa)
 seriafreq= np.fft.fftshift(Transseria)
 print (np.shape(sonrisafreq))
 
-plt.figure()
+plt.figure(figsize=(15,15))
+plt.subplot(121)
 plt.imshow(abs(Transsonrisa), norm=LogNorm())
 plt.colorbar()
 plt.title("Transformada Sonrisa")
-plt.savefig("Transsonrisa")
-
-plt.figure()
+plt.subplot(122)
 plt.imshow(abs(Transseria), norm=LogNorm())
 plt.colorbar()
 plt.title("Transformada Seria")
-plt.savefig("Transseria")
+plt.savefig("FFtIm")
 
-plt.figure()
+plt.figure(figsize=(15,15))
+plt.subplot(221)
 plt.imshow(abs(sonrisafreq), norm=LogNorm())
 plt.colorbar()
 plt.title("Frecuencias Sonrisa")
-plt.savefig("freqsonrisa")
-
-plt.figure()
+plt.subplot(222)
 plt.imshow(abs(seriafreq), norm=LogNorm())
 plt.colorbar()
 plt.title("Frecuencias seria")
-plt.savefig("freqseria")
+
 
 #print (len(sonrisafreq))
 
@@ -58,13 +56,23 @@ inversafoursonr= np.fft.ifft2(amfiltsonr)
 amfiltseria= np.fft.ifftshift(seriafreq)     
 inversafourseria= np.fft.ifft2(amfiltseria)
 
+plt.subplot(223)
+plt.imshow(abs(inversafoursonr), norm=LogNorm())
+plt.colorbar()
+plt.title("Inversa filtrada Sonrisa")
+plt.subplot(224)
+plt.imshow(abs(inversafourseria), norm=LogNorm())
+plt.colorbar()
+plt.title("Inversa filtrada Seria")
+plt.savefig("ImProceso")
+
 hibrideichon= inversafoursonr*0.55+inversafourseria*0.95
 
 plt.figure()
 plt.imshow(abs(hibrideichon),plt.cm.gray)
 plt.colorbar()
 plt.title("Imagen hibrida")
-plt.savefig("Hibrida")
+plt.savefig("ImHYbrid")
 
 
           
