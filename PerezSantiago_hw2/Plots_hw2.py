@@ -38,14 +38,17 @@ yR3= datosR3[:,1]
 tiempo=datosEuler1[:,2]
 energE1=datosEuler1[:,3]
 energL1=datosleap1[:,2]
+energR1=datosR1[:,2]
 
 tiempo2=datosEuler2[:,2]
 energE2=datosEuler2[:,3]
 energL2=datosleap2[:,2]
+energR2=datosR2[:,2]
 
 tiempo3=datosEuler3[:,2]
 energE3=datosEuler3[:,3]
 energL3=datosleap3[:,2]
+energR3=datosR3[:,2]
 
 
 
@@ -55,47 +58,47 @@ plt.subplot(331)
 plt.plot(x,y, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Euler con sigma 0.02")
+plt.title("Euler-0.02")
 plt.subplot(332)
 plt.plot(xL,yL, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Leap-frog con sigma 0.02")
+plt.title("Leap-frog-0.02")
 plt.subplot(334)
 plt.plot(x2,y2, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Euler con 0.001")
+plt.title("Euler-0.001")
 plt.subplot(335)
 plt.plot(xL2,yL2, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Leap-frog con sigma 0.001")
+plt.title("Leap-frog-0.001")
 plt.subplot(337)
 plt.plot(x3,y3, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Euler con sigma 0.0015")
+plt.title("Euler-0.0015")
 plt.subplot(338)
 plt.plot(xL3,yL3, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Leap-frog con sigma 0.0015")
+plt.title("Leap-frog-0.0015")
 plt.subplot(333)
 plt.plot(xR,yR, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Runge-Kutta con dt 0.02")
+plt.title("Runge-Kutta-0.02")
 plt.subplot(336)
 plt.plot(xR2,yR2, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Runge-Kutta con dt 0.001")
+plt.title("Runge-Kutta-0.001")
 plt.subplot(339)
 plt.plot(xR3,yR3, color= "red")
 plt.xlabel("X")
 plt.ylabel("Y")
-plt.title("Runge-Kutta con dt 0.0015")
+plt.title("Runge-Kutta-0.0015")
 
 plt.savefig("Graficas")
 
@@ -132,4 +135,19 @@ plt.plot(tiempo3,energL3)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia Leap3")
+plt.subplot(333)
+plt.plot(tiempo,energR1)
+plt.xlabel("Tiempo")
+plt.ylabel("Energia")
+plt.title("Energia R1")
+plt.subplot(336)
+plt.plot(tiempo2,energR2)
+plt.xlabel("Tiempo")
+plt.ylabel("Energia")
+plt.title("Energia R2")
+plt.subplot(339)
+plt.plot(tiempo3,energR3)
+plt.xlabel("Tiempo")
+plt.ylabel("Energia")
+plt.title("Energia R3")
 plt.savefig("Energia")
