@@ -55,6 +55,11 @@ momentoE1= datosEuler1[:,4]
 momentoE2= datosEuler2[:,4]
 momentoE3= datosEuler3[:,4]
 momentoL1= datosleap1[:,3]
+momentoL2= datosleap2[:,3]
+momentoL3= datosleap3[:,3]
+momentoR1= datosR1[:,3]
+momentoR2= datosR2[:,3]
+momentoR3= datosR3[:,3]
 
 
 
@@ -109,7 +114,7 @@ plt.savefig("Graficas")
 
 
 
-plt.figure(figsize=(15,15))
+plt.figure(figsize=(16,16))
 plt.subplot(331)
 plt.plot(tiempo,energE1)
 plt.xlabel("Tiempo")
@@ -181,4 +186,29 @@ plt.plot(tiempo,momentoL1)
 plt.xlabel("X")
 plt.ylabel("Momento")
 plt.title("Momento Leap1")
+plt.subplot(335)
+plt.plot(tiempo,momentoL2)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Leap2")
+plt.subplot(338)
+plt.plot(tiempo,momentoL3)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Leap3")
+plt.subplot(333)
+plt.plot(tiempo,momentoR1)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Runge1")
+plt.subplot(336)
+plt.plot(tiempo,momentoR2)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Runge2")
+plt.subplot(339)
+plt.plot(tiempo,momentoR3)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Runge3")
 plt.savefig("Momento angular")
