@@ -61,6 +61,26 @@ momentoR1= datosR1[:,3]
 momentoR2= datosR2[:,3]
 momentoR3= datosR3[:,3]
 
+veloxE1= datosEuler1[:,5]
+veloxE2= datosEuler2[:,5]
+veloxE3= datosEuler3[:,5]
+veloxL1= datosleap1[:,4]
+veloxL2= datosleap2[:,4]
+veloxL3= datosleap3[:,4]
+veloxR1= datosR1[:,4]
+veloxR2= datosR2[:,4]
+veloxR3= datosR3[:,4]
+
+veloyE1= datosEuler1[:,6]
+veloyE2= datosEuler2[:,6]
+veloyE3= datosEuler3[:,6]
+veloyL1= datosleap1[:,5]
+veloyL2= datosleap2[:,5]
+veloyL3= datosleap3[:,5]
+veloyR1= datosR1[:,5]
+veloyR2= datosR2[:,5]
+veloyR3= datosR3[:,5]
+
 
 
 plt.figure(figsize=(15,15))
@@ -212,3 +232,63 @@ plt.xlabel("X")
 plt.ylabel("Momento")
 plt.title("Momento Runge3")
 plt.savefig("Momento angular")
+
+
+
+
+
+
+plt.figure(figsize=(15,15))
+plt.subplot(331)
+plt.plot(veloxE1,veloyE1)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Euler 1")
+plt.subplot(334)
+plt.plot(veloxE2,veloyE2)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Euler2")
+
+plt.subplot(337)
+plt.plot(veloxE3,veloyE3)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Euler3")
+
+plt.subplot(332)
+plt.plot(veloxL1,veloyL1)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Leap1")
+
+plt.subplot(335)
+plt.plot(veloxL2,veloyL2)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Leap2")
+plt.subplot(338)
+plt.plot(veloxL3,veloyL3)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Leap3")
+
+plt.subplot(333)
+plt.plot(veloxR1,veloyR1)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Runge1")
+
+plt.subplot(336)
+plt.plot(veloxR2,veloyR2)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Runge2")
+
+
+plt.subplot(339)
+plt.plot(veloxR3,veloyR3)
+plt.xlabel("Vx")
+plt.ylabel("Vy")
+plt.title("Velocidad Runge3")
+plt.savefig("Velocidades")
