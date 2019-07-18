@@ -22,11 +22,27 @@ seriafreq= np.fft.fftshift(Transseria)
 plt.figure()
 plt.imshow(abs(Transsonrisa), norm=LogNorm())
 plt.colorbar()
+plt.title("Transformada Sonrisa")
 plt.savefig("Transsonrisa")
 
 plt.figure()
 plt.imshow(abs(Transseria), norm=LogNorm())
 plt.colorbar()
+plt.title("Transformada Seria")
 plt.savefig("Transseria")
+
+plt.figure()
+plt.imshow(abs(sonrisafreq), norm=LogNorm())
+plt.colorbar()
+plt.title("Frecuencias Sonrisa")
+plt.savefig("freqsonrisa")
+
+plt.figure()
+plt.imshow(abs(seriafreq), norm=LogNorm())
+plt.colorbar()
+plt.title("Frecuencias seria")
+plt.savefig("freqseria")
+
+
 
 
