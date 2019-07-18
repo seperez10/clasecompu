@@ -51,9 +51,14 @@ energL3=datosleap3[:,2]
 energR3=datosR3[:,2]
 
 
+momentoE1= datosEuler1[:,4]
+momentoE2= datosEuler2[:,4]
+momentoE3= datosEuler3[:,4]
+momentoL1= datosleap1[:,3]
 
 
-plt.figure(figsize=(10,15))
+
+plt.figure(figsize=(15,15))
 plt.subplot(331)
 plt.plot(x,y, color= "red")
 plt.xlabel("X")
@@ -104,7 +109,7 @@ plt.savefig("Graficas")
 
 
 
-plt.figure()
+plt.figure(figsize=(15,15))
 plt.subplot(331)
 plt.plot(tiempo,energE1)
 plt.xlabel("Tiempo")
@@ -116,22 +121,22 @@ plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia Leap1")
 plt.subplot(334)
-plt.plot(tiempo2,energE2)
+plt.plot(tiempo,energE2)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia Euler2")
 plt.subplot(335)
-plt.plot(tiempo2,energL2)
+plt.plot(tiempo,energL2)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia Leap2")
 plt.subplot(337)
-plt.plot(tiempo3,energE3)
+plt.plot(tiempo,energE3)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia Euler3")
 plt.subplot(338)
-plt.plot(tiempo3,energL3)
+plt.plot(tiempo,energL3)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia Leap3")
@@ -141,13 +146,39 @@ plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia R1")
 plt.subplot(336)
-plt.plot(tiempo2,energR2)
+plt.plot(tiempo,energR2)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia R2")
 plt.subplot(339)
-plt.plot(tiempo3,energR3)
+plt.plot(tiempo,energR3)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia R3")
 plt.savefig("Energia")
+
+
+
+
+plt.figure(figsize=(15,15))
+plt.subplot(331)
+plt.plot(tiempo,momentoE1)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Euler1")
+plt.subplot(334)
+plt.plot(tiempo,momentoE2)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Euler2")
+plt.subplot(337)
+plt.plot(tiempo,momentoE3)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Euler3")
+plt.subplot(332)
+plt.plot(tiempo,momentoL1)
+plt.xlabel("X")
+plt.ylabel("Momento")
+plt.title("Momento Leap1")
+plt.savefig("Momento angular")

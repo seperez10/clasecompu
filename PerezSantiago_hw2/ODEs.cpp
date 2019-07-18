@@ -21,23 +21,27 @@ double dt,dt1;
 
     int n=1000;
     double t[1000];
-    double rE[1000], xE[1000], yE[1000], vxE[1000], vyE[1000],enerE[1000];
-    double rL[1000], xL[1000], yL[1000], vxL[1000], vyL[1000],enerL[1000];
-    double rR[1000], xR[1000], yR[1000], vxR[1000], vyR[1000],enerR[1000];///Me toco definir esto como variable global si no la funcion no me funcionaba
+    double rE[1000], xE[1000], yE[1000], vxE[1000], vyE[1000],enerE[1000],momeanguE[1000];
+    double rL[1000], xL[1000], yL[1000], vxL[1000], vyL[1000],enerL[1000],momeanguL[1000];
+    double rR[1000], xR[1000], yR[1000], vxR[1000], vyR[1000],enerR[1000],momeanguR[1000];///Me toco definir esto como variable global si no la funcion no me funcionaba
 
 
 int main(){
     
     //////Todo en UA y en agnos////
     
-        double G= 1.982*(pow(10,-29));
-    double m= 1.99*(pow(10,30));
+    
+    double m_sol= 1.99*(pow(10,30));
+    double m_tierra= 5.972*pow(10,24)/m_sol;
+        double G= 1.982*(pow(10,-29))/m_sol;
+    double m=1.0;
 
     t[0]=0.0;
     t[n-1]=20.0;
     enerE[0]=0.0;
     enerL[0]=0.0;
     enerR[0]=0.0;
+    
      xE[0]=0.1163;
     xL[0]=0.1163;
     xR[0]=0.1163;
@@ -58,6 +62,10 @@ int main(){
     rL[0]= rE[0];
     rR[0]= rE[0];
     
+    momeanguE[0]=rE[0]*m*pow((vxE[0]*vxE[0]+vyE[0]*vyE[0]),0.5);
+    momeanguL[0]=momeanguE[0];
+    momeanguR[0]=momeanguE[0];
+    
      //cout << rE[0];
     dt=(t[n-1]-t[0])/(n-1);
     dt1= 0.001;
@@ -73,8 +81,10 @@ int main(){
         vxE[i]= vxE[i-1]+ dt*aceleracion(xE[i-1],rE[i-1]);
         vyE[i]= vyE[i-1]+ dt*aceleracion(yE[i-1],rE[i-1]); 
         rE[i]= pow((xE[i]*xE[i])+(yE[i]*yE[i]),0.5);
-        enerE[i]=0.5*m*(vxE[i]*vxE[i]+vyE[i]*vyE[i]) - (G*m/rE[i]);
-        outfileEu << xE[i] <<","<< yE[i]<<"," <<t[i]<<","<<enerE[i]<< endl;
+        enerE[i]=0.5*m_tierra*(vxE[i]*vxE[i]+vyE[i]*vyE[i]) - (G*m_tierra/rE[i]);
+        
+        momeanguE[i]=rE[i]*m_tierra*pow((vxE[i]*vxE[i]+vyE[i]*vyE[i]),0.5);
+        outfileEu << xE[i] <<","<< yE[i]<<"," <<t[i]<<","<<enerE[i]<<","<<momeanguE[i]<< endl;
         
     
     xL[1]= xE[1];
@@ -82,7 +92,8 @@ int main(){
     vxL[1]= vxE[1];
     vyL[1]= vyE[1];
     rL[1]= pow((xL[1]*xL[1])+(yL[1]*yL[1]),0.5);
-    
+    enerL[1]=0.5*m_tierra*(vxL[1]*vxL[1]+vyL[1]*vyL[1]) - (G*m_tierra/rL[1]);
+    momeanguL[1]=rL[1]*m_tierra*pow((vxL[1]*vxL[1]+vyL[1]*vyL[1]),0.5);
     //outfileLeap << xL[0] <<","<< yL[0] << endl;
     //outfileLeap << xL[1] <<","<< yL[1] << endl;
         
@@ -97,10 +108,11 @@ if(i>=2)
         
         //cout << aceleracion(xL[i-1],rL[i-1])<< endl;
         rL[i]= pow((xL[i]*xL[i])+(yL[i]*yL[i]),0.5);
-        enerL[i]=0.5*m*(vxL[i]*vxL[i]+vyL[i]*vyL[i]) - (G*m/rL[i]);
+        enerL[i]=0.5*m_tierra*(vxL[i]*vxL[i]+vyL[i]*vyL[i]) - (G*m_tierra/rL[i]);
+        momeanguL[i]=rL[i]*m_tierra*pow((vxL[i]*vxL[i]+vyL[i]*vyL[i]),0.5);
 }
         
-        outfileLeap << xL[i] <<","<< yL[i] <<","<<enerL[i]<< endl;
+        outfileLeap << xL[i] <<","<< yL[i] <<","<<enerL[i]<<","<<momeanguL[i]<< endl;
     } outfileEu.close(); outfileLeap.close();
     
     
@@ -122,8 +134,9 @@ if(i>=2)
         vxE[i]= vxE[i-1]+ dt1*aceleracion(xE[i-1],rE[i-1]);
         vyE[i]= vyE[i-1]+ dt1*aceleracion(yE[i-1],rE[i-1]); 
         rE[i]= pow((xE[i]*xE[i])+(yE[i]*yE[i]),0.5);
-        enerE[i]=0.5*m*(vxE[i]*vxE[i]+vyE[i]*vyE[i]) - (G*m/rE[i]);
-        outfileEu2 << xE[i] <<","<< yE[i] <<"," <<t[i]<<","<<enerE[i]<< endl;
+        enerE[i]=0.5*m_tierra*(vxE[i]*vxE[i]+vyE[i]*vyE[i]) - (G*m_tierra/rE[i]);
+        momeanguE[i]=rE[i]*m_tierra*pow((vxE[i]*vxE[i]+vyE[i]*vyE[i]),0.5);
+        outfileEu2 << xE[i] <<","<< yE[i] <<"," <<t[i]<<","<<enerE[i]<<","<<momeanguE[i]<< endl;
         
     
     xL[1]= xE[1];
@@ -131,6 +144,7 @@ if(i>=2)
     vxL[1]= vxE[1];
     vyL[1]= vyE[1];
     rL[1]= pow((xL[1]*xL[1])+(yL[1]*yL[1]),0.5);
+    enerL[1]=0.5*m_tierra*(vxL[1]*vxL[1]+vyL[1]*vyL[1]) - (G*m_tierra/rL[1]);
     
     //outfileLeap << xL[0] <<","<< yL[0] << endl;
     //outfileLeap << xL[1] <<","<< yL[1] << endl;
@@ -145,7 +159,7 @@ if(i>=2)
         vyL[i]= vyL[i-2]+ 2*dt1*aceleracion(yL[i-1],rL[i-1]); 
         
         rL[i]= pow((xL[i]*xL[i])+(yL[i]*yL[i]),0.5);
-        enerL[i]=0.5*m*(vxL[i]*vxL[i]+vyL[i]*vyL[i]) - (G*m/rL[i]);
+        enerL[i]=0.5*m_tierra*(vxL[i]*vxL[i]+vyL[i]*vyL[i]) - (G*m_tierra/rL[i]);
 }
         
         outfileLeap2 << xL[i] <<","<< yL[i]<<","<<enerL[i] << endl;
@@ -168,8 +182,9 @@ if(i>=2)
         vxE[i]= vxE[i-1]+ dt2*aceleracion(xE[i-1],rE[i-1]);
         vyE[i]= vyE[i-1]+ dt2*aceleracion(yE[i-1],rE[i-1]); 
         rE[i]= pow((xE[i]*xE[i])+(yE[i]*yE[i]),0.5);
-        enerE[i]=0.5*m*(vxE[i]*vxE[i]+vyE[i]*vyE[i]) - (G*m/rL[i]);
-        outfileEu3 << xE[i] <<","<< yE[i] <<"," <<t[i]<<","<<enerE[i]<< endl;
+        enerE[i]=0.5*m_tierra*(vxE[i]*vxE[i]+vyE[i]*vyE[i]) - (G*m_tierra/rL[i]);
+        momeanguE[i]=rE[i]*m_tierra*pow((vxE[i]*vxE[i]+vyE[i]*vyE[i]),0.5);
+        outfileEu3 << xE[i] <<","<< yE[i] <<"," <<t[i]<<","<<enerE[i]<<","<<momeanguE[i]<< endl;
         
         
     
@@ -178,6 +193,7 @@ if(i>=2)
     vxL[1]= vxE[1];
     vyL[1]= vyE[1];
     rL[1]= pow((xL[1]*xL[1])+(yL[1]*yL[1]),0.5);
+    enerL[1]=0.5*m_tierra*(vxL[1]*vxL[1]+vyL[1]*vyL[1]) - (G*m_tierra/rL[1]);
     
     //outfileLeap << xL[0] <<","<< yL[0] << endl;
     //outfileLeap << xL[1] <<","<< yL[1] << endl;
@@ -192,7 +208,7 @@ if(i>=2)
         vyL[i]= vyL[i-2]+ 2*dt2*aceleracion(yL[i-1],rL[i-1]); 
         
         rL[i]= pow((xL[i]*xL[i])+(yL[i]*yL[i]),0.5);
-        enerL[i]=0.5*m*(vxL[i]*vxL[i]+vyL[i]*vyL[i]) - (G*m/rL[i]);
+        enerL[i]=0.5*m_tierra*(vxL[i]*vxL[i]+vyL[i]*vyL[i]) - (G*m_tierra/rL[i]);
     
 }
         
@@ -227,8 +243,10 @@ double LeapFrog(double xviejo, double vviejo,double dt){
 double Runge4(double dt, string nombre){
     outfileR4.open(nombre);
     for (int j=1; j<n; j++){
-        double G= 1.982*(pow(10,-29));
-    double m= 1.99*(pow(10,30));
+        double m_sol= 1.99*(pow(10,30));
+    double m_tierra= 5.972*pow(10,24)/m_sol;
+        double G= 1.982*(pow(10,-29))/m_sol;
+    double m=1.0;
     
         double k1x= velocidad(vxR[j-1]);
     double k1x2= aceleracion(xR[j-1], rR[j-1]);
@@ -275,7 +293,7 @@ double Runge4(double dt, string nombre){
         
     rR[j]=  pow((xR[j]*xR[j])+(yR[j]*yR[j]),0.5);
     //cout << j << endl;
-    enerR[j]=0.5*m*(vxR[j]*vxR[j]+vyR[j]*vyR[j]) - (G*m/rR[j]);
+    enerR[j]=0.5*m_tierra*(vxR[j]*vxR[j]+vyR[j]*vyR[j]) - (G*m_tierra/rR[j]);
     outfileR4 << xR[j] << "," << yR[j]<<","<<enerR[j]<<","<<vxR[j]<<","<<vyR[j]<<","<<t[j]<< endl;
     } 
 outfileR4.close();
