@@ -130,7 +130,7 @@ plt.xlabel("X")
 plt.ylabel("Y")
 plt.title("Runge-Kutta-0.0015")
 
-plt.savefig("Graficas")
+plt.savefig("XY_met_dt")
 
 
 
@@ -180,7 +180,7 @@ plt.plot(tiempo,energR3)
 plt.xlabel("Tiempo")
 plt.ylabel("Energia")
 plt.title("Energia R3")
-plt.savefig("Energia")
+plt.savefig("Ener_met_dt")
 
 
 
@@ -231,7 +231,7 @@ plt.plot(tiempo,momentoR3)
 plt.xlabel("X")
 plt.ylabel("Momento")
 plt.title("Momento Runge3")
-plt.savefig("Momento angular")
+plt.savefig("Mome_met_dt")
 
 
 
@@ -291,4 +291,4 @@ plt.plot(veloxR3,veloyR3)
 plt.xlabel("Vx")
 plt.ylabel("Vy")
 plt.title("Velocidad Runge3")
-plt.savefig("Velocidades")
+plt.savefig("VxVy_met_dt")
