@@ -15,13 +15,13 @@ amp = np.cos(2 * np.pi * f * t) - 0.4 * np.sin(2 * np.pi * (2*f) * t ) + np.rand
 #print (amp)
 TransformadaAmp= np.fft.fft(amp)
 #print (TransformadaAmp)
-freq= np.fft.fftfreq(len(TransformadaAmp))*f
+freq= np.fft.fftfreq(len(TransformadaAmp),dt)
 #print (max(freq))
 
 # SU FILTRO
 filtro=[]
 for i in range(len(TransformadaAmp)):
-    if(freq[i]>2 or freq[i]<-1):
+    if(freq[i]>1000 or freq[i]<-1000):
         filtro.append(0)
     else:
         filtro.append(TransformadaAmp[i])
@@ -37,7 +37,7 @@ plt.xlabel("tiempo")
 plt.ylabel("Amplitud")
 plt.title("Original y filtrada")
 plt.legend()
-plt.savefig("filtro.pdf")
+plt.savefig("filtro")
 
 # Puede usar los siguientes paquetes:
 #from scipy.fftpack import fft, fftfreq, ifft
