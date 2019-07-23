@@ -37,7 +37,7 @@ plt.xlabel("tiempo")
 plt.ylabel("Amplitud")
 plt.title("Original y filtrada")
 plt.legend()
-plt.savefig("filtro")
+plt.savefig("filtro.pdf")
 
 # Puede usar los siguientes paquetes:
 #from scipy.fftpack import fft, fftfreq, ifft
